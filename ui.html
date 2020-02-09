@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cryptid Sighting Data</title>
+    <link rel="stylesheet" href="style/ui.css">
+    <link rel="stylesheet" href="script/jquery-ui-themes-1.11.4/themes/sunny/jquery-ui.css">
+</head>
+<body>
+<div class="ui-widget-header ui-corner-top  ui-corner-bottom main">
+    <h2>Submit Your Cryptid Sighting</h2>
+    <h3>Fill out the form below and click "Enter" to Submit</h3>
+</div>
+<form id="ui" name="ui" method="post" action="ui.php">
+    <div class="ui-widget-content main">
+        <h3>CRYPTID SIGHTING DATA</h3>
+    </div>
+    <div class="ui-widget-content main">
+        <h3>Cryptid Sighting Data</h3>
+        <input type="text" name="date" id="datepicker"/>
+        <h3>Creature Type:</h3>
+        <div id="type_select">
+            <input type="radio" id="radio1" value="Chupacabras" name="creature_type"/>
+            <label for="radio1">Chupacabras</label>
+            <input type="radio" id="radio2" value="Jersey Devil" name="creature_type"/>
+            <label for="radio2">Jersey Devil</label>
+            <input type="radio" id="radio3" value="Loch Ness Monster" name="creature_type"/>
+            <label for="radio3">Loch Ness Monster</label>
+            <input type="radio" id="radio4" value="Sasquatch" name="creature_type"/>
+            <label for="radio4">Sasquatch</label>
+            <input type="radio" id="radio5" value="Yeti" name="creature_type"/>
+            <label for="radio5">Yeti</label>
+        </div>
+        <h3>Distance from Creature (in ft.):</h3>
+        <input type="text" id="value1" class="just_display" name="distance" placeholder="0" readonly>
+        <div class="ui-slider-horizontal" id="myslider1"></div>
+        <h3>Creature Weight (in lbs.):</h3>
+        <input type="text" id="value2" class="just_display" name="weight" placeholder="0" readonly>
+        <div class="ui-slider-horizontal" id="myslider2"></div>
+        <h3>Creature Height (in ft.)::</h3>
+        <input type="text" id="value3" class="just_display" name="height" placeholder="0" readonly>
+        <div class="ui-slider-horizontal" id="myslider3"></div>
+        <h3>Color of Creature:</h3>
+        <label>Color:</label>
+        <input type="text" class="just_display" name="creature_color_rgb" id="color_val" readonly>
+        <div id="swatch" class="ui-widget-content ui-corner-all"></div><br>
+        <label>Red:</label>
+        <input type="text" id="red_val" class="just_display" name="creature_color" readonly>
+        <div class="ui-slider-horizontal color" id="red"></div><br>
+        <label>Green:</label>
+        <input type="text" id="green_val" class="just_display" name="creature_color" readonly>
+        <div class="ui-slider-horizontal color" id="green"></div><br>
+        <label>Blue:</label>
+        <input type="text" id="blue_val" class="just_display" name="creature_color" readonly>
+        <div class="ui-slider-horizontal color" id="blue"></div>
+    </div>
+    <div class="ui-widget-content main">
+        <h3>CRYPTID LOCATION DATA</h3>
+    </div>
+    <div class="ui-widget-content main">
+        <h3>Latitude of Sighting:</h3>
+        <input type="text" id="value4" class="just_display" name="latitude" placeholder="0" readonly>
+        <div class="ui-slider-horizontal" id="myslider4"></div>
+        <h3>Longitude of Sighting:</h3>
+        <input type="text" id="value5" class="just_display" name="longitude" placeholder="0" readonly>
+        <div class="ui-slider-horizontal" id="myslider5"></div>
+    </div>
+    <div class="ui-widget-header ui-corner-top  ui-corner-bottom main">
+        <button type="submit" id="btnSave">Submit</button>
+        <input type="hidden" name="action" id="action" value="mentes"/>
+    </div>
+</form>
+<!--Fontos a sorrend!!!-->
+<script src="script/jquery-3.4.1.js"></script>
+<script src="script/ui.js"></script>
+<script src="script/jquery-ui-1.11.4/jquery-ui.js"></script>
+</body>
+</html>
