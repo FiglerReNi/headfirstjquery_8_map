@@ -1,8 +1,49 @@
 $(document).ready(function(){
 
     var map;
+    var bounds = new google.maps.LatLngBounds();
+    //B változathoz kell csak
+    var markerArray = [];
     initialize();
-    addItem();
+
+    if ($('#menu').length){
+        addItemMenu();
+        $('#menu').change(function () {
+            //A változat
+            // $('#map').empty();
+            // initialize();
+            //B véltozat
+            clearMap();
+            var name = $(this).val();
+            $.post('map.php', {data: name}, function(json){
+                if(json.length > 0){
+                    $('#item').empty();
+                    $.each(json, function () {
+                        var info = 'Date: ' + this['date'] + ', Type: ' + this['type'];
+                        var liItem = $("<li>");
+                        liItem.html(info);
+                        liItem.addClass('piece');
+                        liItem.attr('id', this['id']);
+                        liItem.click(function () {
+                            getInfo(this['id']);
+                        });
+                        liItem.appendTo('#item');
+                        var itemLocation = new google.maps.LatLng(this['latitude'], this['longitude']);
+                        var marker = new google.maps.Marker({
+                            position:itemLocation,
+                            title: this['type'],
+                            map: map});
+                        markerArray.push(marker);
+                        bounds.extend(itemLocation);
+                    });
+                    map.fitBounds(bounds);
+                }
+            }, "json")
+        });
+    }
+    else{
+        addItem();
+    }
 
     function initialize(){
         var options = {
@@ -23,7 +64,6 @@ $(document).ready(function(){
                     liItem.html(info);
                     liItem.addClass('piece');
                     liItem.attr('id', this['id']);
-                    debugger;
                     liItem.click(function () {
                         getPiece(this['id']);
                     });
@@ -32,7 +72,23 @@ $(document).ready(function(){
             }
         })
     }
-    
+
+    function addItemMenu() {
+        $.getJSON('map.php?action=select', function (json) {
+            if (json.length > 0) {
+                var i = 1;
+                $.each(json, function () {
+                    var item = $("<option>");
+                    var text = this;
+                    item.html(text);
+                    item.attr('value', text);
+                    item.appendTo('#menu');
+                    i++;
+                })
+            }
+        })
+    }
+
     function getPiece(id) {
         $.getJSON('map.php?action=item&id='+id, function(json) {
             if(json.length > 0){
@@ -44,5 +100,21 @@ $(document).ready(function(){
                 map.setCenter(itemLocation, 10);
             }
         });
+    }
+
+    function clearMap() {
+        if(markerArray){
+            var i;
+            for(i in markerArray){
+                markerArray[i].setMap(null);
+            }
+            markerArray.length = 0;
+            bounds = null;
+            bounds = new google.maps.LatLngBounds();
+        }
+    }
+
+    function getInfo(){
+
     }
 });

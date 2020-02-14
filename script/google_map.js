@@ -60,7 +60,7 @@ function myMap() {
         content:"Hello World!"
     });
     //infowindow.open(map,marker);
-    //info ablak attintásra
+    //info ablak kattintásra
     google.maps.event.addListener(marker, 'click', function() {
         infowindow.open(map,marker);
     });
