@@ -39,7 +39,7 @@ function type($name = ''){
     if($name != ''){
         $name = ' WHERE type = "'.$name .'"';
     }
-    $query = 'SELECT id, DATE AS "date", TYPE AS "type", latitude, longitude
+    $query = 'SELECT id, DATE AS "date", TYPE AS "type", latitude, longitude, distance, weight, height, color
           FROM form '.$name;
 
     $result = dbConnection($query);

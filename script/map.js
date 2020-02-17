@@ -20,12 +20,18 @@ $(document).ready(function(){
                     $('#item').empty();
                     $.each(json, function () {
                         var info = 'Date: ' + this['date'] + ', Type: ' + this['type'];
+                        var infoBovebb = 'Distance: ' + this['distance'] + '<br>Weight: ' + this['weight'];
+                        infoBovebb += '<br>Height: ' + this['height'] + '<br>Color: ' + this['color'];
+                        infoBovebb += '<br>Latitude: ' + this['latitude'] + '<br>Longitude: ' + this['longitude'];
                         var liItem = $("<li>");
                         liItem.html(info);
                         liItem.addClass('piece');
                         liItem.attr('id', this['id']);
                         liItem.click(function () {
-                            getInfo(this['id']);
+                            var infowindow = new google.maps.InfoWindow({
+                                content: infoBovebb
+                            });
+                            infowindow.open(map,marker);
                         });
                         liItem.appendTo('#item');
                         var itemLocation = new google.maps.LatLng(this['latitude'], this['longitude']);
@@ -34,6 +40,12 @@ $(document).ready(function(){
                             title: this['type'],
                             map: map});
                         markerArray.push(marker);
+                        var infowindow = new google.maps.InfoWindow({
+                            content:infoBovebb
+                        });
+                        google.maps.event.addListener(marker, 'click', function() {
+                            infowindow.open(map,marker);
+                        });
                         bounds.extend(itemLocation);
                     });
                     map.fitBounds(bounds);
@@ -114,7 +126,4 @@ $(document).ready(function(){
         }
     }
 
-    function getInfo(){
-
-    }
 });
